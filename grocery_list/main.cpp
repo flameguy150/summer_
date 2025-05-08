@@ -9,6 +9,7 @@ using namespace std;
 int main()
 {
     dept d;
-    d.beginning();
+    d.control_panel();
+
     return 1;
 }
