@@ -50,6 +50,10 @@ void dept::control_panel()
     {
         add_item();
     }
+    else if (option == '2')
+    {
+        display_items();
+    }
     else if (option == ESCAPE) // exit
     {
         system("cls");
@@ -111,6 +115,8 @@ void dept::add_item()
 
     // add item
     // push to store
+    Item current(code_, name_, company_);
+    store.push_back(current);
 
     // menu cntrl + add more?
     char response;
@@ -136,4 +142,18 @@ void dept::add_item()
     // {
     //     control_panel();
     // }
+}
+
+void dept::display_items()
+{
+    system("cls");
+    cout << "\t\t\tDisplaying Items" << endl;
+    cout << "---------------------------------"
+            "---------------------------------"
+            "-----"
+         << endl;
+    for (size_t i = 0; i < store.size(); ++i)
+    {
+        cout << i << ". " << store[i] << endl;
+    }
 }
