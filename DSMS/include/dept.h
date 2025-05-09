@@ -10,10 +10,16 @@ class dept
 {
 
 public:
+    void menu();
     void control_panel();
     void add_item();
     void display_items();
 
-private:
+    void saveData(const std::vector<Item> &store_, const std::string &filename);
+    void grabData(std::vector<Item> &store_, const std::string &filename);
+
+    void options_();
     std::vector<Item> store;
+
+private:
 };

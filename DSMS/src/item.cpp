@@ -29,13 +29,16 @@ Item &Item::operator=(const Item &other)
     return *this;
 }
 
+// ostream is output file
 std::ostream &
 operator<<(std::ostream &os, const Item &item)
 {
-    os << "Code: " << item.getCode() << ", Name: " << item.getName() << ", Company: " << item.getCompany();
+    // os << "Code: " << item.getCode() << ", Name: " << item.getName() << ", Company: " << item.getCompany();
+    os << item.getCode() << " " << item.getName() << " " << item.getCompany();
     return os;
 }
 
+// istream reads files
 std::istream &operator>>(std::istream &is, Item &item)
 {
     int code_;
