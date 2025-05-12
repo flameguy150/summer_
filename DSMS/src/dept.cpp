@@ -13,6 +13,7 @@ saving data so program can retain items everytime on open
 void dept::saveData(const vector<Item> &store_, const string &filename)
 {
     // ofstream used to write to files
+
     ofstream file(filename);
     if (file.is_open())
     {
@@ -34,6 +35,7 @@ loading saved data
 void dept::grabData(vector<Item> &store_, const string &filename)
 {
     // ifstream used to read from flies
+
     ifstream file(filename);
     if (!file.is_open())
     {
@@ -96,22 +98,24 @@ void dept::options_()
 void dept::menu()
 {
     system("cls");
+    system("Color 0A");
     int choice;
 
     while (true)
     {
         cout << "\t\tMenu" << endl;
-        cout << "---------------------------" << endl;
+        cout << "-------------------------------------" << endl;
         cout << "1. Load Data from File" << endl;
         cout << "2. Save Data to File" << endl;
         cout << "3. Manage Store (Control Panel)" << endl;
-        cout << "4. Exit" << endl;
-        cin >> choice;
+        cout << "4. Exit (Press ESC)" << endl;
+        // cin >> choice;
+        choice = _getch();
 
         switch (choice)
         {
 
-        case 1: // load data
+        case '1': // load data
         {
             string filename;
             cout << "Enter filename to load: ";
@@ -122,7 +126,7 @@ void dept::menu()
             break;
         }
 
-        case 2: // save data
+        case '2': // save data
         {
             string filename;
             cout << "Enter filename to save: ";
@@ -133,13 +137,13 @@ void dept::menu()
             break;
         }
 
-        case 3: // control panel
+        case '3': // control panel
         {
             control_panel();
             break;
         }
 
-        case 4:
+        case ESCAPE:
         {
             system("cls");
             return;
@@ -191,6 +195,23 @@ void dept::control_panel()
 }
 
 /*
+Function so that i can exit to cntrl panel during functions
+i think we need to just need to grab input from this function
+*/
+bool dept::esc_pressed()
+{
+    if (_kbhit())
+    {
+        int key = _getch();
+        if (key == ESCAPE)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+/*
 adding item to department store
 this means you add the item code and name
 and company name
@@ -212,6 +233,10 @@ void dept::add_item()
     int code_;
     cout << "Item Code: ";
     cin >> code_;
+    if (esc_pressed())
+    {
+        control_panel();
+    }
     cout << "\n---------------------------------"
             "---------------------------------"
             "-----\n"
@@ -222,24 +247,35 @@ void dept::add_item()
     cout << "Item Name: ";
     cin.ignore();
     getline(cin, name_);
+    if (esc_pressed())
+    {
+        return;
+    }
 
     // company name
     string company_;
     cout << "\nCompany Name: ";
     getline(cin, company_);
+    if (esc_pressed())
+    {
+        return;
+    }
 
     // quantity
     int quantity_;
     cout << "\nQuantity: ";
     cin >> quantity_;
+    if (esc_pressed())
+    {
+        return;
+    }
 
     cout << "\n---------------------------------"
             "---------------------------------"
             "-----\n"
          << endl;
 
-    // add item
-    // push to store
+    // add item && push to store
     Item current(code_, name_, company_, quantity_);
     store.push_back(current);
 
