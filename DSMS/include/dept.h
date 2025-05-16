@@ -14,8 +14,10 @@ public:
     void control_panel();
     void add_item();
     void display_items();
+    void remove_item();
 
     bool esc_pressed();
+
 
     void saveData(const std::vector<Item> &store_, const std::string &filename);
     void grabData(std::vector<Item> &store_, const std::string &filename);

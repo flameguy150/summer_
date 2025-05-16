@@ -1,0 +1,5 @@
+3. check item - look to see if item exists
+4. remove item - removing item from list
+	- [ ] I want to display all items and let them choose which one to
+	  delete
+

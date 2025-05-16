@@ -350,3 +350,9 @@ void dept::display_items()
         }
     }
 }
+
+void remove_item()
+{
+    system("cls");
+    cout << "remove items function being implemented~" << endl;
+}
