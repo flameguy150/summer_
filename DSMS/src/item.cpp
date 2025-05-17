@@ -13,8 +13,8 @@ bool Item::operator==(const Item &other) const
 
 bool Item::operator!=(const Item &other) const
 {
-    return code != other.code &&
-           name != other.name &&
+    return code != other.code ||
+           name != other.name ||
            company != other.company;
 }
 
