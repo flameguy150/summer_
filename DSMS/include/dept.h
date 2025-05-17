@@ -18,7 +18,6 @@ public:
 
     bool esc_pressed();
 
-
     void saveData(const std::vector<Item> &store_, const std::string &filename);
     void grabData(std::vector<Item> &store_, const std::string &filename);
 

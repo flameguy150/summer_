@@ -9,12 +9,13 @@ class Item
 public:
     // empty constructor
     Item() : code(0), name(""), company(""), quantity(0) {}
-    // no quantity
-    Item(int code_, std::string name_, std::string company_) : code(code_), name(name_), company(company_),
-                                                               quantity(0) {}
+    // no quantity // default constructor
+    Item(int code_, std::string name_, std::string company_) : code(code_), name(name_), company(company_), quantity(0) {}
     // all parameters
-    Item(int code_, std::string name_, std::string company_, int quantity_) : code(code_), name(name_), company(company_),
-                                                                              quantity(quantity_) {}
+    Item(int code_, std::string name_, std::string company_, int quantity_) : code(code_), name(name_), company(company_), quantity(quantity_) {}
+    // copy constructor
+    Item(const Item &other) : code(other.code), name(other.name), company(other.company) {}
+
     int getCode() const { return code; }
     std::string getName() const { return name; }
     std::string getCompany() const { return company; }

@@ -1,7 +1,9 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <cstdlib>
 #include <conio.h>
+#include <algorithm>
 #include "dept.h"
 
 #define ESCAPE 27
@@ -67,6 +69,10 @@ void dept::options_()
     {
         display_items();
     }
+    else if (option == '4')
+    {
+        remove_item();
+    }
     else if (option == ESCAPE) // exit
     {
         system("cls");
@@ -74,6 +80,7 @@ void dept::options_()
     }
     else
     {
+
         while (true)
         {
             char input = _getch();
@@ -86,6 +93,10 @@ void dept::options_()
             {
                 display_items();
                 break;
+            }
+            else if (input == '4')
+            {
+                remove_item();
             }
             else if (input == ESCAPE) // exit
             {
@@ -350,9 +361,65 @@ void dept::display_items()
         }
     }
 }
+/*
+function for removing item from inventory
+remove item - removing item from list
+- I want to display all items and let them choose which one to
+      delete
 
-void remove_item()
+*/
+void dept::remove_item()
 {
     system("cls");
-    cout << "remove items function being implemented~" << endl;
+    cout << "\t\t\t   Deleting Item" << endl;
+    cout << "---------------------------------"
+            "---------------------------------"
+            "-----"
+         << endl;
+
+    Item item;
+    for (size_t i = 0; i < store.size(); ++i)
+    {
+        // os << "Code: " << item.getCode() << ", Name: " << item.getName() << ", Company: " << item.getCompany();
+        item = store[i];
+        cout << i << ". " << "Code: " << item.getCode() << ", Name: " << item.getName() << ", Company: "
+             << item.getCompany() << endl;
+    }
+    cout << "Which item would you like to remove?" << endl;
+    int index;
+    cin >> index;
+
+    // delete item that is at store[index]
+    // change response based on if item exists
+    Item removed_ = store[index];
+    string question = "";
+    auto it = find(store.begin(), store.end(), removed_);
+    if (it != store.end())
+    {
+        store.erase(store.begin() + index);
+        question = "Would you like to removed more items? (Y/N) ";
+        cout << "Successfully removed " << removed_ << "!\n\n"
+             << endl;
+    }
+    else
+    {
+        question = "Would you like to try again? (Y/N) ";
+        cout << "Item does not exist" << endl;
+    }
+
+    //
+    // menu cntrl + add more?
+    char response;
+    cout << question;
+    cin.ignore();
+    cin >> response;
+    response = tolower(response);
+    if (response == 'y')
+    {
+        remove_item();
+    }
+    else if (response == 'n')
+    {
+        control_panel();
+    }
 }
