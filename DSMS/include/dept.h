@@ -12,9 +12,10 @@ class dept
 public:
     void menu();
     void control_panel();
-    void add_item();
-    void display_items();
-    void remove_item();
+    void add_item();      // 1
+    void display_items(); // 2
+    void find_item();     // 3
+    void remove_item();   // 4
 
     bool esc_pressed();
 

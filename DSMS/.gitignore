@@ -1,9 +1,9 @@
 .vscode/
 
 # CMake files
-CMakeFiles/
-CMakeCache.txt
-cmake_install.cmake
-Makefile
+# CMakeFiles/
+# CMakeCache.txt
+# cmake_install.cmake
+
 todo.txt~
 .todo.txt.un~
