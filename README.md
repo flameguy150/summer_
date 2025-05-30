@@ -1,3 +1,5 @@
-# Fun side projects - summer 2025
----
-## 1. [Department Store Management System](./DSMS/)
+# Projects - summer 2025
+
+
+### 1. [Department Store Management System](./DSMS/)
+### 2. [Ascii to Art](./A2A/)
