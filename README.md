@@ -2,4 +2,4 @@
 
 
 ### 1. [Department Store Management System](./DSMS/)
-### 2. [Ascii to Art](./A2A/)
+### 2. [Art to Ascii](./A2A/)
