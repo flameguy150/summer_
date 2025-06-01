@@ -6,7 +6,10 @@ Draw 600 squares split diagonally
 */
 void createFlatTerrain(int screenWidth, int screenHeight)
 {
-    DrawCube(cubePosition, 2.0f, 2.0f, 2.0f, RED);
-    DrawCubeWires(cubePosition, 2.0f, 2.0f, 2.0f, MAROON);
-    DrawGrid(10, 1.0f);
+    DrawCube(originCubePosition, 1.0f, 1.0f, 1.0f, RED);
+    DrawCubeWires(originCubePosition, 1.0f, 1.0f, 1.0f, BLACK);
+
+    DrawCube(cubePosition, 1.0f, 1.0f, 1.0f, SKYBLUE);
+    DrawCubeWires(cubePosition, 1.0f, 1.0f, 1.0f, BLACK);
+    DrawGrid(100, 1.0f);
 }
