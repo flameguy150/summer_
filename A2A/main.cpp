@@ -86,7 +86,7 @@ void saveASCIIData(vector<vector<char>> ascii_image, const string &filename)
 int main()
 {
     int width, height, channels;
-    unsigned char *image = stbi_load("./img/car.jpg", &width, &height, &channels, 1);
+    unsigned char *image = stbi_load("./img/rabbit.jpg", &width, &height, &channels, 1);
 
     //--------------------------------------TEST: IMG LOADED----------------------------------------------------------------------------
     if (image == nullptr)
@@ -96,8 +96,8 @@ int main()
     }
     else
     {
-        cout << "Successfully loaded image!" << endl;
-        cout << "Image size: " << width << " x " << height << endl;
+        // cout << "Successfully loaded image!" << endl;
+        // cout << "Image size: " << width << " x " << height << endl;
     }
     //--------------------------------------LOADING PIXELS INTO VECTOR----------------------------------------------------------------------------
 
@@ -204,7 +204,7 @@ int main()
     // saveASCIIData(ascii_image, "./data/ascii.txt");
 
     //--------------------------------------PRINTING ASCII ART TO TERMINAL---------------------------------------------------------------------------------
-    system("clear");
+    // system("clear");
     for (size_t y = 0; y < height; ++y)
     {
         for (size_t x = 0; x < width; ++x)
