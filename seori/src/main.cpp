@@ -1,14 +1,11 @@
 #include <raylib.h>
 #include <iostream>
-#include "globals.h"
-#include "terrain.h"
 
 using namespace std;
 
 Camera3D camera = {0};
 Vector3 originCubePosition = {0.0f, 0.0f, 0.0f};
 Vector3 cubePosition = {2.0f, 0.0f, 0.0f};
-float terrain[TERRAIN_WIDTH][TERRAIN_DEPTH];
 
 int main()
 {
@@ -38,13 +35,6 @@ int main()
         rotation += GetFPS() * 0.05;
         UpdateCamera(&camera, CAMERA_FREE);
 
-        for (int x = 0; x < TERRAIN_WIDTH; ++x)
-        {
-            for (int z = 0; z < TERRAIN_DEPTH; ++z)
-            {
-                terrain[x][z] = noise(x, z);
-            }
-        }
         //---------------------------------------------DRAWING--------------------------------------------------------
 
         BeginDrawing();
@@ -58,7 +48,8 @@ int main()
         {
             camera.target = (Vector3){0.0f, 0.0f, 0.0f};
         }
-        createFlatTerrain(screenWidth, screenHeight);
+
+        DrawGrid(10, 1.0);
 
         EndMode3D();
         //--------------------------------------------------------------------------------------------------------
