@@ -1,63 +1,46 @@
-#include <raylib.h>
-#include <iostream>
+// #include <raylib.h>
+// #include <iostream>
+// #include "draw.h"
 
-using namespace std;
+// using namespace std;
 
-Camera3D camera = {0};
-Vector3 originCubePosition = {0.0f, 0.0f, 0.0f};
-Vector3 cubePosition = {2.0f, 0.0f, 0.0f};
+// int screenWidth = 1200;
+// int screenHeight = 600;
 
-int main()
-{
-    Color bgColor = BLACK;
-    int screenWidth = 1200;
-    int screenHeight = 600;
+// int main()
+// {
+//     Color bgColor = BLACK;
 
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-    InitWindow(screenWidth, screenHeight, "INFINITE_TERRAIN");
+//     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+//     InitWindow(screenWidth, screenHeight, "seori");
 
-    SetTargetFPS(60);
-    float rotation = 0.0f;
+//     SetTargetFPS(60);
+//     float rotation = 0.0f;
 
-    camera.position = (Vector3){0.0f, 10.0f, 10.0f}; // Camera position
-    camera.target = (Vector3){0.0f, 0.0f, 0.0f};     // Camera looking at point
-    camera.up = (Vector3){0.0f, 1.0f, 0.0f};         // Camera up vector (rotation towards target)
-    camera.fovy = 45.0f;                             // Camera field-of-view Y
-    camera.projection = CAMERA_PERSPECTIVE;          // Camera mode type
+//     // DisableCursor();
 
-    // DisableCursor();
+//     while (!WindowShouldClose()) // Detect window close button or ESC key
+//     {
+//         screenWidth = GetScreenWidth();
+//         screenHeight = GetScreenHeight();
 
-    while (!WindowShouldClose()) // Detect window close button or ESC key
-    {
-        screenWidth = GetScreenWidth();
-        screenHeight = GetScreenHeight();
+//         rotation += GetFPS() * 0.05;
 
-        rotation += GetFPS() * 0.05;
-        UpdateCamera(&camera, CAMERA_FREE);
+//         //---------------------------------------------DRAWING--------------------------------------------------------
 
-        //---------------------------------------------DRAWING--------------------------------------------------------
+//         BeginDrawing();
+//         ClearBackground(bgColor);
 
-        BeginDrawing();
-        ClearBackground(bgColor);
+//         DrawFPS(0, 0);
+//         DrawPolyLines((Vector2){20, 50}, 6, 20, rotation, RED);
 
-        DrawFPS(0, 0);
-        DrawPolyLines((Vector2){20, 50}, 6, 20, rotation, RED);
-        //---------------------------------------------3D--------------------------------------------------------
-        BeginMode3D(camera);
-        if (IsKeyPressed('Z'))
-        {
-            camera.target = (Vector3){0.0f, 0.0f, 0.0f};
-        }
+//         DrawCircle(screenWidth / 2, screenHeight / 2, 100, RED);
+//         drawCoordinatePlane();
 
-        DrawGrid(10, 1.0);
-
-        EndMode3D();
-        //--------------------------------------------------------------------------------------------------------
-
-        EndDrawing();
-    }
-    // De-Initialization
-    //--------------------------------------------------------------------------------------
-    CloseWindow();
-    return 1;
-}
+//         EndDrawing();
+//     }
+//     // De-Initialization
+//     //--------------------------------------------------------------------------------------
+//     CloseWindow();
+//     return 1;
+// }
