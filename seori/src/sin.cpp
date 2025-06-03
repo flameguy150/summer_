@@ -20,7 +20,10 @@ int main()
     SetTargetFPS(600);
     float rotation = 0.0f;
 
-    InitSinPoints(-4 * PI, 4 * PI); // for animation, to push all points to animate in a vector
+    // InitSinPoints(-4 * PI, 4 * PI); // for animation, to push all points to animate in a vector
+    InitPoints(-4 * PI, 4 * PI, "sin");
+    InitPoints(-4 * PI, 4 * PI, "cos");
+    InitPoints(-4 * PI, 4 * PI, "tan");
 
     // DisableCursor();
 
@@ -39,7 +42,10 @@ int main()
         DrawPolyLines((Vector2){20, 50}, 6, 20, rotation, RED);
 
         // DrawSinFunc(-4 * PI, 4 * PI);
-        AnimateSinFunc();
+        // AnimateSinFunc();
+        AnimateFunc("sin", RED);
+        AnimateFunc("cos", SKYBLUE);
+        AnimateFunc("tan", GREEN);
         // DrawCosFunc(-4 * PI, 4 * PI);
         // DrawTanFunc(-4 * PI, 4 * PI);
         DrawCoordinatePlane();

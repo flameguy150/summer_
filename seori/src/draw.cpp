@@ -5,6 +5,7 @@
 #include <string>
 #include <thread>
 #include <chrono>
+#include <cctype>
 
 #define PI_PIXELS 120 // 1π == 100 pixels
 #define RADIANS_TO_PIXEL (PI_PIXELS / PI)
@@ -95,6 +96,7 @@ void DrawTanFunc(float xStart, float xEnd)
         DrawLine(sx1, sy1, sx2, sy2, GREEN);
     }
 }
+//----------------------------------------------ANIMATION-------------------------------------------------------------
 
 void InitSinPoints(float xStart, float xEnd)
 {
@@ -145,6 +147,141 @@ void AnimateSinFunc()
         }
     }
 }
+
+void InitPoints(float xStart, float xEnd, std::string Func)
+{
+    float scaleX = 50.0f;  //( 1 unit on the x-axis = 50 pixels if scaleX = 50)
+    float scaleY = 100.0f; // ( 1 unit on the Y-axis = 100 pixels if scaleY = 100)
+    int resolution = 10000;
+    float step = (xEnd - xStart) / resolution;
+    float offset = screenWidth / 2;
+    for (char &c : Func)
+    {
+        c = std::tolower(c);
+    }
+    if (Func == "sin")
+    {
+        for (int i = 0; i <= resolution; ++i)
+        {
+            float x1 = xStart + (i * step);
+            float y1 = sinf(x1) * scaleY;
+
+            int sx1 = (int)(x1 * scaleX + offset);
+            int sy1 = screenHeight / 2 - (int)(y1); // Flip y-axis
+
+            sinPoints.push_back({float(sx1), float(sy1)});
+        }
+    }
+    else if (Func == "cos")
+    {
+        for (int i = 0; i <= resolution; ++i)
+        {
+            float x1 = xStart + (i * step);
+            float y1 = cosf(x1) * scaleY;
+
+            int sx1 = (int)(x1 * scaleX + offset);
+            int sy1 = screenHeight / 2 - (int)(y1); // Flip y-axis
+
+            cosPoints.push_back({float(sx1), float(sy1)});
+        }
+    }
+    if (Func == "tan")
+    {
+        for (int i = 0; i <= resolution; ++i)
+        {
+            float x1 = xStart + (i * step);
+            float y1 = tanf(x1) * scaleY;
+
+            int sx1 = (int)(x1 * scaleX + offset);
+            int sy1 = screenHeight / 2 - (int)(y1); // Flip y-axis
+
+            tanPoints.push_back({float(sx1), float(sy1)});
+        }
+    }
+
+    animationIndex = 0;
+}
+
+/*
+Funny things:
+    - To draw a laser drawing out the line, change sinPointsToDraw.size() - 1 to sinPointsToDraw.size().
+      This works because when the loop access an out of bounds array, the array auto points to {0,0}. Funny lol
+    - **WARNING** Elliptic redrawing, careful for flash**WARNING**
+      To draw mirage, just comment out DrawFPS(0, 0) in sin.cpp
+*/
+void AnimateFunc(std::string Func, Color color)
+{
+    for (char &c : Func)
+    {
+        c = std::tolower(c);
+    }
+
+    if (Func == "sin")
+    {
+        if (animationIndex + 1 < sinPoints.size())
+        {
+            sinPointsToDraw.push_back(sinPoints[animationIndex]);
+            for (int i = 0; i < sinPointsToDraw.size() - 1; ++i)
+            {
+                DrawLine(sinPointsToDraw[i].x, sinPointsToDraw[i].y,
+                         sinPointsToDraw[i + 1].x, sinPointsToDraw[i + 1].y, color);
+            }
+            animationIndex += 1;
+        }
+        else // if end is reached
+        {
+            for (int i = 0; i < sinPointsToDraw.size() - 1; ++i)
+            {
+                DrawLine(sinPointsToDraw[i].x, sinPointsToDraw[i].y,
+                         sinPointsToDraw[i + 1].x, sinPointsToDraw[i + 1].y, color);
+            }
+        }
+    }
+    else if (Func == "cos")
+    {
+        if (animationIndex + 1 < cosPoints.size())
+        {
+            cosPointsToDraw.push_back(cosPoints[animationIndex]);
+            for (int i = 0; i < cosPointsToDraw.size() - 1; ++i)
+            {
+                DrawLine(cosPointsToDraw[i].x, cosPointsToDraw[i].y,
+                         cosPointsToDraw[i + 1].x, cosPointsToDraw[i + 1].y, color);
+            }
+            animationIndex += 1;
+        }
+        else // if end is reached
+        {
+            for (int i = 0; i < cosPointsToDraw.size() - 1; ++i)
+            {
+                DrawLine(cosPointsToDraw[i].x, cosPointsToDraw[i].y,
+                         cosPointsToDraw[i + 1].x, cosPointsToDraw[i + 1].y, color);
+            }
+        }
+    }
+    else if (Func == "tan")
+    {
+        if (animationIndex + 1 < tanPoints.size())
+        {
+            tanPointsToDraw.push_back(tanPoints[animationIndex]);
+            for (int i = 0; i < tanPointsToDraw.size() - 1; ++i)
+            {
+                DrawLine(tanPointsToDraw[i].x, tanPointsToDraw[i].y,
+                         tanPointsToDraw[i + 1].x, tanPointsToDraw[i + 1].y, color);
+            }
+            animationIndex += 1;
+        }
+        else // if end is reached
+        {
+            for (int i = 0; i < tanPointsToDraw.size() - 1; ++i)
+            {
+                DrawLine(tanPointsToDraw[i].x, tanPointsToDraw[i].y,
+                         tanPointsToDraw[i + 1].x, tanPointsToDraw[i + 1].y, color);
+            }
+        }
+    }
+}
+
+//----------------------------------------------COORDINATE PLANE-------------------------------------------------------------
 
 void DrawNumericTicks()
 {
