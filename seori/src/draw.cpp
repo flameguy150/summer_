@@ -3,6 +3,8 @@
 #include <cmath>
 #include <cwchar>
 #include <string>
+#include <thread>
+#include <chrono>
 
 #define PI_PIXELS 120 // 1π == 100 pixels
 #define RADIANS_TO_PIXEL (PI_PIXELS / PI)
@@ -44,7 +46,7 @@ void DrawCosFunc(float xStart, float xEnd)
 {
     float scaleX = 50.0f;  //( 1 unit on the x-axis = 50 pixels if scaleX = 50)
     float scaleY = 100.0f; // ( 1 unit on the Y-axis = 100 pixels if scaleY = 100)
-    int resolution = 10000;
+    int resolution = 2000;
     float step = (xEnd - xStart) / resolution;
     float offset = screenWidth / 2;
 
@@ -91,6 +93,56 @@ void DrawTanFunc(float xStart, float xEnd)
         int sy2 = screenHeight / 2 - (int)(y2);
 
         DrawLine(sx1, sy1, sx2, sy2, GREEN);
+    }
+}
+
+void InitSinPoints(float xStart, float xEnd)
+{
+    float scaleX = 50.0f;  //( 1 unit on the x-axis = 50 pixels if scaleX = 50)
+    float scaleY = 100.0f; // ( 1 unit on the Y-axis = 100 pixels if scaleY = 100)
+    int resolution = 10000;
+    float step = (xEnd - xStart) / resolution;
+    float offset = screenWidth / 2;
+    for (int i = 0; i <= resolution; ++i)
+    {
+        float x1 = xStart + (i * step);
+        float y1 = sinf(x1) * scaleY;
+
+        int sx1 = (int)(x1 * scaleX + offset);
+        int sy1 = screenHeight / 2 - (int)(y1); // Flip y-axis
+
+        sinPoints.push_back({float(sx1), float(sy1)});
+    }
+
+    animationIndex = 0;
+}
+
+/*
+Funny things:
+    - To draw a laser drawing out the line, change sinPointsToDraw.size() - 1 to sinPointsToDraw.size().
+      This works because when the loop access an out of bounds array, the array auto points to {0,0}. Funny lol
+    - **WARNING** Elliptic redrawing, careful for flash**WARNING**
+      To draw mirage, just comment out DrawFPS(0, 0) in sin.cpp
+*/
+void AnimateSinFunc()
+{
+    if (animationIndex + 1 < sinPoints.size())
+    {
+        sinPointsToDraw.push_back(sinPoints[animationIndex]);
+        for (int i = 0; i < sinPointsToDraw.size() - 1; ++i)
+        {
+            DrawLine(sinPointsToDraw[i].x, sinPointsToDraw[i].y,
+                     sinPointsToDraw[i + 1].x, sinPointsToDraw[i + 1].y, RED);
+        }
+        animationIndex += 1;
+    }
+    else // if end is reached
+    {
+        for (int i = 0; i < sinPointsToDraw.size() - 1; ++i)
+        {
+            DrawLine(sinPointsToDraw[i].x, sinPointsToDraw[i].y,
+                     sinPointsToDraw[i + 1].x, sinPointsToDraw[i + 1].y, RED);
+        }
     }
 }
 

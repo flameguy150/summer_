@@ -15,10 +15,12 @@ int main()
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(screenWidth, screenHeight, "sin");
 
-    Font font = LoadFont("/seori/resources/noto-sans/NotoSans-Regular.ttf");
+    // Font font = LoadFont("/seori/resources/noto-sans/NotoSans-Regular.ttf");
 
-    SetTargetFPS(60);
+    SetTargetFPS(600);
     float rotation = 0.0f;
+
+    InitSinPoints(-4 * PI, 4 * PI); // for animation, to push all points to animate in a vector
 
     // DisableCursor();
 
@@ -33,20 +35,20 @@ int main()
 
         BeginDrawing();
         ClearBackground(bgColor);
-
         DrawFPS(0, 0);
         DrawPolyLines((Vector2){20, 50}, 6, 20, rotation, RED);
 
-        DrawSinFunc(-4 * PI, 4 * PI);
-        DrawCosFunc(-4 * PI, 4 * PI);
-        DrawTanFunc(-4 * PI, 4 * PI);
+        // DrawSinFunc(-4 * PI, 4 * PI);
+        AnimateSinFunc();
+        // DrawCosFunc(-4 * PI, 4 * PI);
+        // DrawTanFunc(-4 * PI, 4 * PI);
         DrawCoordinatePlane();
 
         EndDrawing();
     }
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    UnloadFont(font);
+    // UnloadFont(font);
     CloseWindow();
     return 1;
 }
