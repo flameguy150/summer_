@@ -9,6 +9,8 @@
 
 ## 2D spiral platformer
 
+Or at least I plan to but I'm just messing around w graphics
+
 - [ ] spiral bg
 - [ ] music
 - [ ] ball bouncing in spiral direction
