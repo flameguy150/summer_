@@ -17,6 +17,8 @@ extern std::vector<Vector2> cosPoints;
 extern std::vector<Vector2> cosPointsToDraw;
 extern std::vector<Vector2> tanPoints;
 extern std::vector<Vector2> tanPointsToDraw;
+extern std::vector<Vector2> absPoints;
+extern std::vector<Vector2> absPointsToDraw;
 
 extern int screenWidth;
 extern int screenHeight;

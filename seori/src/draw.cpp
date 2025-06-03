@@ -198,6 +198,19 @@ void InitPoints(float xStart, float xEnd, std::string Func)
             tanPoints.push_back({float(sx1), float(sy1)});
         }
     }
+    if (Func == "abs")
+    {
+        for (int i = 0; i <= resolution; ++i)
+        {
+            float x1 = xStart + (i * step);
+            float y1 = fabsf(x1) * scaleY;
+
+            int sx1 = (int)(x1 * scaleX + offset);
+            int sy1 = screenHeight / 2 - (int)(y1); // Flip y-axis
+
+            absPoints.push_back({float(sx1), float(sy1)});
+        }
+    }
 
     animationIndex = 0;
 }
@@ -279,6 +292,27 @@ void AnimateFunc(std::string Func, Color color)
             }
         }
     }
+    else if (Func == "abs")
+    {
+        if (animationIndex + 1 < absPoints.size())
+        {
+            absPointsToDraw.push_back(absPoints[animationIndex]);
+            for (int i = 0; i < absPointsToDraw.size() - 1; ++i)
+            {
+                DrawLine(absPointsToDraw[i].x, absPointsToDraw[i].y,
+                         absPointsToDraw[i + 1].x, absPointsToDraw[i + 1].y, color);
+            }
+            animationIndex += 1;
+        }
+        else // if end is reached
+        {
+            for (int i = 0; i < absPointsToDraw.size() - 1; ++i)
+            {
+                DrawLine(absPointsToDraw[i].x, absPointsToDraw[i].y,
+                         absPointsToDraw[i + 1].x, absPointsToDraw[i + 1].y, color);
+            }
+        }
+    }
 }
 
 //----------------------------------------------COORDINATE PLANE-------------------------------------------------------------
@@ -354,6 +388,6 @@ void DrawCoordinatePlane()
 
     DrawLine(startx2, starty2, endx2, endy2, WHITE);
 
-    // DrawNumericTicks();
-    DrawRadianTicks();
+    DrawNumericTicks();
+    // DrawRadianTicks();
 }

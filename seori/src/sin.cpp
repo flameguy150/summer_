@@ -24,6 +24,7 @@ int main()
     InitPoints(-4 * PI, 4 * PI, "sin");
     InitPoints(-4 * PI, 4 * PI, "cos");
     InitPoints(-4 * PI, 4 * PI, "tan");
+    InitPoints(-4 * PI, 4 * PI, "abs");
 
     // DisableCursor();
 
@@ -46,6 +47,7 @@ int main()
         AnimateFunc("sin", RED);
         AnimateFunc("cos", SKYBLUE);
         AnimateFunc("tan", GREEN);
+        AnimateFunc("abs", YELLOW);
         // DrawCosFunc(-4 * PI, 4 * PI);
         // DrawTanFunc(-4 * PI, 4 * PI);
         DrawCoordinatePlane();
