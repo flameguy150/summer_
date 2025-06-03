@@ -4,9 +4,12 @@
 #include <raylib.h>
 #include "globals.h"
 
-void drawLilSinFunc(float xStart, float xEnd);
-void drawSinFunc(float xStart, float xEnd);
+void DrawSinFunc(float xStart, float xEnd);
+void DrawCosFunc(float xStart, float xEnd);
+void DrawTanFunc(float xStart, float xEnd);
 
-void drawCoordinatePlane();
+void DrawNumericTicks();
+void DrawRadianTicks();
+void DrawCoordinatePlane();
 
 #endif

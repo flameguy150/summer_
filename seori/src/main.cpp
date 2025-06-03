@@ -11,6 +11,8 @@
 // {
 //     Color bgColor = BLACK;
 
+//     Font font = LoadFont("/seori/resources/noto-sans/NotoSans-Regular.ttf");
+
 //     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
 //     InitWindow(screenWidth, screenHeight, "seori");
 
@@ -35,12 +37,13 @@
 //         DrawPolyLines((Vector2){20, 50}, 6, 20, rotation, RED);
 
 //         DrawCircle(screenWidth / 2, screenHeight / 2, 100, RED);
-//         drawCoordinatePlane();
+//         DrawCoordinatePlane();
 
 //         EndDrawing();
 //     }
 //     // De-Initialization
 //     //--------------------------------------------------------------------------------------
+//     UnloadFont(font);
 //     CloseWindow();
 //     return 1;
 // }

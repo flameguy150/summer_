@@ -1,5 +1,7 @@
 # seori
 
+![SINCOSTAN](img/sincostan.png)
+
 2D spiral platformer
 
 - [ ] spiral bg
