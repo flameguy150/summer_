@@ -8,8 +8,13 @@
 
 // Declare global variables
 
+extern int screenWidth;
+extern int screenHeight;
+
 extern Font font;
 extern size_t animationIndex;
+
+// extern bool animatingFlag;
 
 extern std::vector<Vector2> sinPoints;
 extern std::vector<Vector2> sinPointsToDraw;
@@ -19,8 +24,5 @@ extern std::vector<Vector2> tanPoints;
 extern std::vector<Vector2> tanPointsToDraw;
 extern std::vector<Vector2> absPoints;
 extern std::vector<Vector2> absPointsToDraw;
-
-extern int screenWidth;
-extern int screenHeight;
 
 #endif

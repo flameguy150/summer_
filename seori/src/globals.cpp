@@ -1,4 +1,7 @@
 #include "globals.h"
+#include <vector>
+
+// bool animatingFlag = true;
 
 std::vector<Vector2> sinPoints;
 std::vector<Vector2> sinPointsToDraw;

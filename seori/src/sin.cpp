@@ -5,16 +5,26 @@
 
 using namespace std;
 
+// int screenWidth = GetMonitorWidth(0);
+// int screenHeight = GetMonitorHeight(0);
+
 int screenWidth = 1200;
 int screenHeight = 600;
+
+bool animatingFlag = true;
 
 int main()
 {
     Color bgColor = BLACK;
 
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-    InitWindow(screenWidth, screenHeight, "sin");
 
+    InitWindow(screenWidth, screenHeight, "seori_sin");
+
+    // int monitor = GetCurrentMonitor();
+    // screenWidth = GetMonitorWidth(monitor);
+    // screenHeight = GetMonitorHeight(monitor);
+    // SetWindowSize(screenWidth, screenHeight);
     // Font font = LoadFont("/seori/resources/noto-sans/NotoSans-Regular.ttf");
 
     SetTargetFPS(600);
@@ -30,9 +40,9 @@ int main()
 
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
+
         screenWidth = GetScreenWidth();
         screenHeight = GetScreenHeight();
-
         rotation += GetFPS() * 0.05;
 
         //---------------------------------------------DRAWING--------------------------------------------------------
@@ -44,10 +54,23 @@ int main()
 
         // DrawSinFunc(-4 * PI, 4 * PI);
         // AnimateSinFunc();
-        AnimateFunc("sin", RED);
-        AnimateFunc("cos", SKYBLUE);
-        AnimateFunc("tan", GREEN);
-        AnimateFunc("abs", YELLOW);
+
+        /*
+        if window size changes:
+                        resizePoints()
+        */
+        if (IsKeyPressed(KEY_P)) // pause
+        {
+            animatingFlag = !animatingFlag;
+        }
+        if (animatingFlag)
+        {
+            AnimateFunc("sin", RED);
+            AnimateFunc("cos", SKYBLUE);
+            AnimateFunc("tan", GREEN);
+            AnimateFunc("abs", YELLOW);
+        }
+
         // DrawCosFunc(-4 * PI, 4 * PI);
         // DrawTanFunc(-4 * PI, 4 * PI);
         DrawCoordinatePlane();
@@ -58,5 +81,5 @@ int main()
     //--------------------------------------------------------------------------------------
     // UnloadFont(font);
     CloseWindow();
-    return 1;
+    return 0;
 }

@@ -147,11 +147,15 @@ void AnimateSinFunc()
         }
     }
 }
-
+/*
+math:
+    scaleX = 1200:50, ScreenWidth / 24
+    sca;eY = 600:100, ScreenHeight / 6
+*/
 void InitPoints(float xStart, float xEnd, std::string Func)
 {
-    float scaleX = 50.0f;  //( 1 unit on the x-axis = 50 pixels if scaleX = 50)
-    float scaleY = 100.0f; // ( 1 unit on the Y-axis = 100 pixels if scaleY = 100)
+    float scaleX = (float)screenWidth / 24.0f; //( 1 unit on the x-axis = 50 pixels if scaleX = 50) 1200 : 50
+    float scaleY = (float)screenWidth / 6.0f;  // ( 1 unit on the Y-axis = 100 pixels if scaleY = 100) 600 : 100
     int resolution = 10000;
     float step = (xEnd - xStart) / resolution;
     float offset = screenWidth / 2;
@@ -388,6 +392,6 @@ void DrawCoordinatePlane()
 
     DrawLine(startx2, starty2, endx2, endy2, WHITE);
 
-    DrawNumericTicks();
-    // DrawRadianTicks();
+    // DrawNumericTicks();
+    DrawRadianTicks();
 }
