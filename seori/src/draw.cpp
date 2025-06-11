@@ -147,6 +147,18 @@ void AnimateSinFunc()
         }
     }
 }
+void pushPointsToAll()
+{
+    allPoints.push_back(sinPoints);
+    allPoints.push_back(cosPoints);
+    allPoints.push_back(tanPoints);
+    allPoints.push_back(absPoints);
+    allPointsToDraw.push_back(sinPointsToDraw);
+    allPointsToDraw.push_back(cosPointsToDraw);
+    allPointsToDraw.push_back(tanPointsToDraw);
+    allPointsToDraw.push_back(absPointsToDraw);
+}
+
 /*
 math:
     scaleX = 1200:50, ScreenWidth / 24
@@ -154,6 +166,8 @@ math:
 */
 void InitPoints(float xStart, float xEnd, std::string Func)
 {
+
+    //----------------------------------------------------------------------------------------------------------
     float scaleX = (float)screenWidth / 24.0f; //( 1 unit on the x-axis = 50 pixels if scaleX = 50) 1200 : 50
     float scaleY = (float)screenWidth / 6.0f;  // ( 1 unit on the Y-axis = 100 pixels if scaleY = 100) 600 : 100
     int resolution = 10000;
@@ -175,6 +189,8 @@ void InitPoints(float xStart, float xEnd, std::string Func)
 
             sinPoints.push_back({float(sx1), float(sy1)});
         }
+        sinIsCalled = true;
+        sinInfo = {xStart, xEnd, Func};
     }
     else if (Func == "cos")
     {
@@ -188,6 +204,8 @@ void InitPoints(float xStart, float xEnd, std::string Func)
 
             cosPoints.push_back({float(sx1), float(sy1)});
         }
+        cosIsCalled = true;
+        cosInfo = {xStart, xEnd, Func};
     }
     if (Func == "tan")
     {
@@ -201,6 +219,8 @@ void InitPoints(float xStart, float xEnd, std::string Func)
 
             tanPoints.push_back({float(sx1), float(sy1)});
         }
+        tanIsCalled = true;
+        tanInfo = {xStart, xEnd, Func};
     }
     if (Func == "abs")
     {
@@ -214,8 +234,9 @@ void InitPoints(float xStart, float xEnd, std::string Func)
 
             absPoints.push_back({float(sx1), float(sy1)});
         }
+        absIsCalled = true;
+        absInfo = {xStart, xEnd, Func};
     }
-
     animationIndex = 0;
 }
 
@@ -319,6 +340,40 @@ void AnimateFunc(std::string Func, Color color)
     }
 }
 
+/*
+called when window size changes
+resizing calculation:
+*/
+void resizePoints()
+{
+    for (std::vector<Vector2> &points : allPoints)
+    {
+        points.clear();
+    }
+
+    if (sinIsCalled)
+    {
+        InitPoints(sinInfo.start, sinInfo.end, sinInfo.Func);
+    }
+    if (cosIsCalled)
+    {
+        InitPoints(cosInfo.start, cosInfo.end, cosInfo.Func);
+    }
+    if (tanIsCalled)
+    {
+        InitPoints(tanInfo.start, tanInfo.end, tanInfo.Func);
+    }
+    if (absIsCalled)
+    {
+        InitPoints(absInfo.start, absInfo.end, absInfo.Func);
+    }
+
+    for (std::vector<Vector2> &pointsToDraw : allPointsToDraw)
+    {
+        pointsToDraw.clear();
+    }
+    animationIndex = 0;
+}
 //----------------------------------------------COORDINATE PLANE-------------------------------------------------------------
 
 void DrawNumericTicks()

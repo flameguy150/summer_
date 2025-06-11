@@ -9,7 +9,7 @@ using namespace std;
 // int screenHeight = GetMonitorHeight(0);
 
 int screenWidth = 1200;
-int screenHeight = 600;
+int screenHeight = 1200;
 
 bool animatingFlag = true;
 
@@ -17,9 +17,20 @@ int main()
 {
     Color bgColor = BLACK;
 
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+    // SetConfigFlags(FLAG_WINDOW_RESIZABLE);
 
     InitWindow(screenWidth, screenHeight, "seori_sin");
+
+    int prevScreenWidth = GetScreenWidth();
+    int prevScreenHeight = GetScreenHeight();
+
+    InitAudioDevice(); // Initialize audio device
+
+    Music music = LoadMusicStream("assets/resources/music/angel_breakcore.mp3");
+
+    PlayMusicStream(music);
+    float timePlayed = 0.0f; // Time played normalized [0.0f..1.0f]
+    bool pause = false;
 
     // int monitor = GetCurrentMonitor();
     // screenWidth = GetMonitorWidth(monitor);
@@ -29,6 +40,9 @@ int main()
 
     SetTargetFPS(600);
     float rotation = 0.0f;
+    //--------------------SETTING UP POINT VECTORS-----------------------------------
+    pushPointsToAll();
+    //-------------------------------------------------------
 
     // InitSinPoints(-4 * PI, 4 * PI); // for animation, to push all points to animate in a vector
     InitPoints(-4 * PI, 4 * PI, "sin");
@@ -40,6 +54,13 @@ int main()
 
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
+        int currScreenWidth = GetScreenWidth();
+        int currScreenHeight = GetScreenHeight();
+        // if (prevScreenWidth != currScreenWidth || prevScreenHeight != currScreenHeight)
+        // {
+        //     resizePoints();
+        // }
+        UpdateMusicStream(music);
 
         screenWidth = GetScreenWidth();
         screenHeight = GetScreenHeight();
@@ -80,6 +101,10 @@ int main()
     // De-Initialization
     //--------------------------------------------------------------------------------------
     // UnloadFont(font);
+    UnloadMusicStream(music); // Unload music stream buffers from RAM
+
+    CloseAudioDevice(); // Close audio device (music streaming is automatically stopped)
+
     CloseWindow();
     return 0;
 }

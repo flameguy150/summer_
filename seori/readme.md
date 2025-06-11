@@ -16,4 +16,9 @@ Or at least I plan to but I'm just messing around w graphics
 - [ ] ball bouncing in spiral direction
 - [ ] camera panning
 
+## Functionality
+ - [ ] resize
+    - [ ] set up map<bool, vector<Vector2>>
+    
+
 ---
